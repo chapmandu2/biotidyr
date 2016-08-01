@@ -1,9 +1,9 @@
-#' gather_assay.PharmacoGx
+#' gather_assay.PharmacoSet
 #'
-#' @param x A PharmacoGx object
+#' @param x A PharmacoSet object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)
 #' @param gene_ids A vector of gene ids.  Default is NULL (don't filter on gene id)
-#' @param data_type Name of the component of the PharmacoGx object to gather
+#' @param data_type Name of the component of the PharmacoSet object to gather
 #' @param sample_col Name of the column in the pData data frame to use for filtering on sample id
 #' @param gene_col Name of the column in the rowData data frame to use for filtering on gene id
 #'
@@ -12,16 +12,16 @@
 #'
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')
-#' gather_assay.PharmacoGx(CCLEsmall, sample_ids=c('143B', '23132-87'),
+#' gather_assay.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'),
 #'                          gene_ids=c('BRAF', 'EGFR'), data_type='rna')
 #' set.seed(20)
-#' gather_assay.PharmacoGx(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
+#' gather_assay.PharmacoSet(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
 #'                          gene_ids=c('BRAF', 'EGFR'), data_type='mutation')
 #'
-#' gather_assay.PharmacoGx(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
+#' gather_assay.PharmacoSet(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
 #'  gene_ids=c('AK2', 'TFP1'), data_type='rnaseq', gene_col='gene_name')
 #'
-gather_assay.PharmacoGx <- function(x, sample_ids=NULL, gene_ids=NULL, data_type='rna', sample_col='cellid', gene_col='Symbol') {
+gather_assay.PharmacoSet <- function(x, sample_ids=NULL, gene_ids=NULL, data_type='rna', sample_col='cellid', gene_col='Symbol') {
 
     stopifnot(data_type %in% names(x@molecularProfiles))
     y <- x@molecularProfiles[[data_type]]
