@@ -1,7 +1,7 @@
 Package: biotidyr
 Type: Package
 Title: Tidy functions for MultiAssayExperiment and PharmacoGX objects
-Version: 0.1.5
+Version: 0.1.6
 Author: Phil Chapman
 Maintainer: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 Description: More about what it does (maybe more than one line)
@@ -14,5 +14,10 @@ Imports:
     Biobase,
     purrr,
     magrittr,
-    PharmacoGx
+    PharmacoGx,
+    broom,
+    ggplot2
 RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

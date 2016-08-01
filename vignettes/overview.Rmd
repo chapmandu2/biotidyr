@@ -1,0 +1,98 @@
+---
+title: "Overview of biotidyr"
+author: "Phil Chapman"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, warning=FALSE}
+library(dplyr)
+library(PharmacoGx)
+library(biotidyr)
+library(ggplot2)
+
+```
+
+
+## Introduction
+
+Exemplify functions for generating tidy data from PharmacoSet and MultiAssayExperient objects.
+
+## Quick example
+
+A PharmacoSet object contains molecular profiling and drug response data for collections of cell lines.  The molecular profiling data is stored in an ExpressionSet object
+
+```{r}
+data('CCLEsmall', package='PharmacoGx')
+CCLEsmall
+eset <- CCLEsmall@molecularProfiles$rna
+class(eset)
+```
+
+The gather.ExpressionSet function converts an ExpressionSet into a tidy data frame:
+
+```{r}
+df <- gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR'), 
+                           sample_col = "cellid", gene_col = "Symbol")
+df
+as.data.frame(df)
+```
+
+Note that we can customise which identifier we want to use by specifying the sample\_col and gene\_col parameters.
+
+## gather.PharmacoSet
+
+The `gather.PharmacoSet` function combined data from multiple sources and reports in a tidy format with a single data point per row:
+
+```{r}
+gather.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR'),
+  data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'))
+```
+
+## makeGeneticVsGeneticTibble.PharmacoSet
+
+The `makeGeneticVsGeneticTibble.PharmacoSet` function generates a data frame with one pair of genetic feature data per row.
+
+```{r}
+gvg_df <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
+data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
+gvg_df
+
+```
+
+This is useful for creating plots of one gene vs another in ggplot2:
+
+```{r}
+ggplot(gvg_df, aes(x=feature_value1, y=feature_value2)) + 
+    geom_point() + 
+    theme_bw()
+
+```
+
+However, you can also supply multiple genes to this function:
+```{r}
+genes <- c('RBM5', 'NQO1', "STPG1", "NIPAL3","LAS1L","ENPP4","SEMA3F","CFTR")
+gvg_df2 <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1=genes,  gene2=genes, data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
+nrow(gvg_df2)
+
+```
+
+This data format is then in a convenient form to manage models in a data frame using the dplyr and broom packages - see [Managing Many Models by Hadley Wickham](https://www.youtube.com/watch?v=rz3_FDVt9eg).  In the example below we are exploring how well RNAseq and Affymetrix data correlate across a number of genes.
+
+```{r}
+mod_df <- gvg_df2 %>%
+    dplyr::filter(gene1==gene2) %>%
+    dplyr::group_by(feature_name1, feature_name2) %>%
+    tidyr::nest() %>%
+    dplyr::mutate(mod=purrr::map(data, function(x) lm(feature_value1 ~ feature_value2, data=x)),
+                  res=purrr::map(mod, broom::glance))
+mod_df
+mod_df %>% dplyr::select(-data,-mod) %>% tidyr::unnest()
+
+```
+
+
