@@ -33,5 +33,9 @@ gather_assay.PharmacoGx(CCLEsmall, sample_ids=c('143B', '23132-87'),
 set.seed(20)
 gather_assay.PharmacoGx(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
                          gene_ids=c('BRAF', 'EGFR'), data_type='mutation')
+
+gather_assay.PharmacoGx(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
+ gene_ids=c('AK2', 'TFP1'), data_type='rnaseq', gene_col='gene_name')
+
 }
 

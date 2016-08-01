@@ -36,8 +36,10 @@ gather.PharmacoGx
 }
 \examples{
 data('CCLEsmall', package='PharmacoGx')
+
 gather.PharmacoGx(CCLEsmall, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR'),
  data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'))
+
 gather.PharmacoGx(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'), gene_ids=c('BRAF', 'EGFR'),
  resp_ids=c("AEW541","Nilotinib","PHA-665752","lapatinib"),
  data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'), resp_col='ic50_published')
