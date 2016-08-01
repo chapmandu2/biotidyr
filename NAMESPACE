@@ -2,4 +2,5 @@
 
 export(gather.ExpressionSet)
 export(gather_assay.PharmacoGx)
+export(gather_response.PharmacoGx)
 importFrom(magrittr,"%>%")
