@@ -28,5 +28,6 @@ Convert an ExpressionSet object into tidy format
 data('CCLEsmall', package='PharmacoGx')
 eset <- CCLEsmall@molecularProfiles$rna
 gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR') )
+gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87') )
 }
 

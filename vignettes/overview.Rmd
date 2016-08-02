@@ -33,13 +33,20 @@ eset <- CCLEsmall@molecularProfiles$rna
 class(eset)
 ```
 
-The gather.ExpressionSet function converts an ExpressionSet into a tidy data frame:
+The `gather.ExpressionSet` function converts an ExpressionSet into a tidy data frame:
 
 ```{r}
 df <- gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR'), 
                            sample_col = "cellid", gene_col = "Symbol")
 df
 as.data.frame(df)
+```
+
+Not specifying gene\_ids or sample\_ids returns all genes or samples
+
+```{r}
+gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), 
+                           sample_col = "cellid", gene_col = "Symbol")
 ```
 
 Note that we can customise which identifier we want to use by specifying the sample\_col and gene\_col parameters.
