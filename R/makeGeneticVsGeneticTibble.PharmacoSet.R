@@ -24,7 +24,7 @@ makeGeneticVsGeneticTibble.PharmacoSet <- function(x, sample_ids=NULL, gene1, ge
 
     gene1_data <- gather_assay.PharmacoSet(x, sample_ids, gene_ids=gene1,
                                           data_type=data_type1, sample_col=sample_col, gene_col=gene_col1) %>%
-        dplyr::transmute(unified_id, gene1 = assayed_id,
+        dplyr::transmute(sample_id, gene1 = assayed_id,
                          feature_type1 = data_type,
                          feature_name1 = paste(assayed_id, data_type, sep = "_"),
                          feature_value1 = value,
@@ -32,13 +32,13 @@ makeGeneticVsGeneticTibble.PharmacoSet <- function(x, sample_ids=NULL, gene1, ge
 
     gene2_data <- gather_assay.PharmacoSet(x, sample_ids, gene_ids=gene2,
                                           data_type=data_type2, sample_col=sample_col, gene_col=gene_col2) %>%
-        dplyr::transmute(unified_id, gene2 = assayed_id,
+        dplyr::transmute(sample_id, gene2 = assayed_id,
                          feature_type2 = data_type,
                          feature_name2 = paste(assayed_id, data_type, sep = "_"),
                          feature_value2 = value,
                          feature_original2 = original)
 
     gene1_data %>%
-        dplyr::inner_join(gene2_data, by = "unified_id")
+        dplyr::inner_join(gene2_data, by = "sample_id")
 
 }

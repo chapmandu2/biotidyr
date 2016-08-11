@@ -28,7 +28,7 @@ gather_assay.PharmacoSet <- function(x, sample_ids=NULL, gene_ids=NULL, data_typ
 
     dat <- gather.ExpressionSet(y, sample_ids=sample_ids, gene_ids=gene_ids,
                                 sample_col=sample_col, gene_col=gene_col) %>%
-        dplyr::transmute(unified_id=pData_sample_id, assayed_id=fData_gene_id,
+        dplyr::transmute(sample_id=pData_sample_id, assayed_id=fData_gene_id,
                          data_type=data_type, original=value)
 
     if(typeof(Biobase::exprs(y)) == 'character') {

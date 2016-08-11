@@ -28,6 +28,6 @@ gather_response.PharmacoSet <- function(x, sample_ids=NULL, resp_ids=NULL, resp_
         dplyr::tbl_df()
 
     drugData %>%
-        dplyr::transmute(unified_id=cellid, assayed_id=drugid, data_type='resp', original=as.character(value), value)
+        dplyr::transmute(sample_id=cellid, assayed_id=drugid, data_type='resp', original=as.character(value), value)
 
 }
