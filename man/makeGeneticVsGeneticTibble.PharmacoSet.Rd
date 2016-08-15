@@ -34,7 +34,7 @@ makeGeneticVsGeneticTibble.PharmacoSet
 \examples{
 data('CCLEsmall', package='PharmacoGx')
 
-gvg_df <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
+gvg_df <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
  data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
 gvg_df
 CancerCellLines::plotGeneticVsGeneticPoint(gvg_df)

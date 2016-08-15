@@ -16,12 +16,12 @@
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')
 #'
-#' dat1 <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall),
+#' dat1 <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCLEsmall),
 #'   gene_ids = c('RBM5', 'LAP3', 'CFTR'), data_type = 'rna')
-#' dat2 <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall),
+#' dat2 <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCLEsmall),
 #'   gene_ids = c('RBM5', 'LAP3', 'CFTR'), data_type = 'rnaseq', gene_col='gene_name')
 #'
-#' gvg_df <- makeGeneticVsGeneticTibble.data.frame(df=dat1, df2=dat2, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
+#' gvg_df <- makeGeneticVsGeneticTibble.data.frame(df=dat1, df2=dat2, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
 #'  data_type1='rna', data_type2='rnaseq')
 #' gvg_df
 #' CancerCellLines::plotGeneticVsGeneticPoint(gvg_df)

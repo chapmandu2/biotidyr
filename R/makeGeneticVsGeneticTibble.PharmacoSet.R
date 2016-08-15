@@ -15,7 +15,7 @@
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')
 #'
-#' gvg_df <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
+#' gvg_df <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
 #'  data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
 #' gvg_df
 #' CancerCellLines::plotGeneticVsGeneticPoint(gvg_df)
@@ -23,22 +23,11 @@ makeGeneticVsGeneticTibble.PharmacoSet <- function(x, sample_ids=NULL, gene1, ge
                                                   sample_col = "cellid", gene_col1 = "Symbol", gene_col2 = "Symbol") {
 
     gene1_data <- gather_assay.PharmacoSet(x, sample_ids, gene_ids=gene1,
-                                          data_type=data_type1, sample_col=sample_col, gene_col=gene_col1) %>%
-        dplyr::transmute(sample_id, gene1 = assayed_id,
-                         feature_type1 = data_type,
-                         feature_name1 = paste(assayed_id, data_type, sep = "_"),
-                         feature_value1 = value,
-                         feature_original1 = original)
+                                          data_type=data_type1, sample_col=sample_col, gene_col=gene_col1)
 
     gene2_data <- gather_assay.PharmacoSet(x, sample_ids, gene_ids=gene2,
-                                          data_type=data_type2, sample_col=sample_col, gene_col=gene_col2) %>%
-        dplyr::transmute(sample_id, gene2 = assayed_id,
-                         feature_type2 = data_type,
-                         feature_name2 = paste(assayed_id, data_type, sep = "_"),
-                         feature_value2 = value,
-                         feature_original2 = original)
+                                          data_type=data_type2, sample_col=sample_col, gene_col=gene_col2)
 
-    gene1_data %>%
-        dplyr::inner_join(gene2_data, by = "sample_id")
+    makeGeneticVsGeneticTibble.data.frame(gene1_data, gene2_data)
 
 }
