@@ -42,6 +42,6 @@ resp_data <- gather_response.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellN
 rvg_df <- makeRespVsGeneticTibble.data.frame(df=genetic_data, df2=resp_data, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene_ids='RBM5',
  data_types='rna', resp_ids='Nilotinib')
 rvg_df
-CancerCellLines::plotGeneticVsGeneticPoint(gvg_df)
+CancerCellLines::plotRespVsGeneticPoint(rvg_df)
 }
 
