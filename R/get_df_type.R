@@ -32,15 +32,24 @@ get_df_type <- function(df) {
         if(identical(template_df_format, query_df_format)) {
             return(format_id)
         } else if (identical(names(template_df_format), names(query_df_format)) &
-                   !identical(unname(template_df_format), unname(template_df_format))) {
+                   !identical(unname(template_df_format), unname(query_df_format))) {
             stop(sprintf('%s format but column types incorrect, try data("%s") for an example', format_id, template_df))
+            #return(format_id)
+        } else {
+            return(NULL)
         }
 
     }
 
-    compare_df(df, 'dietlein_data', 'resp_df')
-    compare_df(df, 'example_tall_df', 'tall_df')
-    compare_df(df, 'example_tall_df', 'gvg_df')
-    compare_df(df, 'example_rvg_df', 'rvg_df')
+    res <- c(compare_df(df, 'dietlein_data', 'resp_df'),
+            compare_df(df, 'example_tall_df', 'tall_df'),
+            compare_df(df, 'example_gvg_df', 'gvg_df'),
+            compare_df(df, 'example_rvg_df', 'rvg_df'))
+
+    if(is.null(res)) {
+        return('unknown')
+    } else {
+        return(res)
+    }
 
 }
