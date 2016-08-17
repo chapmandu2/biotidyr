@@ -29,6 +29,9 @@ makeGeneticVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL,
 
     if(is.null(df2)) {df2 <- df}
 
+    check_df_type(df, 'tall_df', dev_mode=TRUE)
+    check_df_type(df2, 'tall_df', dev_mode=TRUE)
+
     #filtering
     if(!is.null(sample_ids)) {
         df <- df %>% dplyr::filter(sample_id %in% sample_ids)

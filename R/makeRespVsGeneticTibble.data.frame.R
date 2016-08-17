@@ -23,10 +23,12 @@
 #' rvg_df <- makeRespVsGeneticTibble.data.frame(df=genetic_data, df2=resp_data, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene_ids='RBM5',
 #'  data_types='rna', resp_ids='Nilotinib')
 #' rvg_df
-#' CancerCellLines::plotRespVsGeneticPoint(rvg_df)
 makeRespVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL, gene_ids=NULL, data_types=NULL, compound_ids=NULL, endpoints=NULL, resp_ids=NULL) {
 
     if(is.null(df2)) {df2 <- df}
+
+    check_df_type(df, 'tall_df', dev_mode = TRUE)
+
 
     #filtering
     if(!is.null(sample_ids)) {
@@ -42,15 +44,15 @@ makeRespVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL, ge
         df <- df %>% dplyr::filter(data_type %in% data_types)
     }
 
-    if(!is.null(compound_ids) & 'compound_id' %in% colnames(df2)) {
+    if(!is.null(compound_ids) & check_df_type(df2, 'resp_df')) {
         df2 <- df2 %>% dplyr::filter(compound_id %in% compound_ids)
     }
 
-    if(!is.null(endpoints) & 'endpoint' %in% colnames(df2)) {
+    if(!is.null(endpoints) & check_df_type(df2, 'resp_df')) {
         df2 <- df2 %>% dplyr::filter(endpoint %in% endpoints)
     }
 
-    if(!is.null(resp_ids) & 'assayed_id' %in% colnames(df2)) {
+    if(!is.null(resp_ids) & check_df_type(df2, 'tall_df')) {
         df2 <- df2 %>% dplyr::filter(assayed_id %in% resp_ids)
     }
 
