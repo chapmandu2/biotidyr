@@ -14,6 +14,15 @@
 #'                          resp_ids=c('AEW541', 'Nilotinib'), resp_col='ic50_published')
 gather_response.PharmacoSet <- function(x, sample_ids=NULL, resp_ids=NULL, resp_col='ic50_published') {
 
+    #include all samples and response values if either is not specified
+    if(is.null(sample_ids)) {
+        sample_ids <- PharmacoGx::cellNames(x)
+    }
+
+    if(is.null(resp_ids)) {
+        resp_ids <- PharmacoGx::drugNames(x)
+    }
+
     drugInfo <- x@sensitivity$info %>%
         tibble::rownames_to_column('drugid_cellid') %>%
         dplyr::select(drugid_cellid, cellid, drugid) %>%
