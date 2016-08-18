@@ -12,11 +12,11 @@ test_drug_ids <- sample(drugNames(CCLE), 5)
 resp_data <- gather_response.PharmacoSet(CCLE, test_sample_ids, test_drug_ids)
 assay_data <- gather_assay.PharmacoSet(CCLE, test_sample_ids, test_gene_ids, 'rna', gene_col='Probe')
 
-gvg1 <- makeGeneticVsGeneticTibble.data.frame(assay_data,
+gvg1 <- make_genetic_vs_genetic_df.data.frame(assay_data,
                                               gene1=sample(test_gene_ids, 5),
                                               gene2=sample(test_gene_ids, 1))
 
-rvg1 <- makeRespVsGeneticTibble.data.frame(assay_data, resp_data,
+rvg1 <- make_response_vs_genetic_df.data.frame(assay_data, resp_data,
                                            gene_ids = sample(test_gene_ids, 1),
                                            sample_ids = '1321N1')
 
@@ -26,11 +26,11 @@ assay_data2 <- gather_assay.PharmacoSet(CCLE, sample_ids=NULL, gene_ids = c('BRA
 assay_data3 <- gather.PharmacoSet(CCLE, sample_ids=NULL, gene_ids = c('BRAF', 'ERBB2', 'EGFR'), data_types=c('rna', 'rnaseq'), gene_col=c('Symbol', 'Symbol'))
 
 #combo data frames
-gvg2 <- makeGeneticVsGeneticTibble.data.frame(assay_data2)
-gvg3 <- makeGeneticVsGeneticTibble.data.frame(assay_data3)
+gvg2 <- make_genetic_vs_genetic_df.data.frame(assay_data2)
+gvg3 <- make_genetic_vs_genetic_df.data.frame(assay_data3)
 
-rvg2 <- makeRespVsGeneticTibble.data.frame(assay_data2, resp_data2)
-rvg3 <- makeRespVsGeneticTibble.data.frame(assay_data3, resp_data2)
+rvg2 <- make_response_vs_genetic_df.data.frame(assay_data2, resp_data2)
+rvg3 <- make_response_vs_genetic_df.data.frame(assay_data3, resp_data2)
 
 
 #some plots

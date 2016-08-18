@@ -60,12 +60,12 @@ gather.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF
   data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'))
 ```
 
-## makeGeneticVsGeneticTibble.PharmacoSet
+## make\_genetic\_\vs\_genetic_df.PharmacoSet
 
-The `makeGeneticVsGeneticTibble.PharmacoSet` function generates a data frame with one pair of genetic feature data per row.
+The `make_genetic_vs_genetic_df.PharmacoSet` function generates a data frame with one pair of genetic feature data per row.
 
 ```{r}
-gvg_df <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
+gvg_df <- make_genetic_vs_genetic_df.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
 data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
 gvg_df
 
@@ -83,7 +83,7 @@ ggplot(gvg_df, aes(x=feature_value1, y=feature_value2)) +
 However, you can also supply multiple genes to this function:
 ```{r}
 genes <- c('RBM5', 'NQO1', "STPG1", "NIPAL3","LAS1L","ENPP4","SEMA3F","CFTR")
-gvg_df2 <- makeGeneticVsGeneticTibble.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1=genes,  gene2=genes, data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
+gvg_df2 <- make_genetic_vs_genetic_df.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1=genes,  gene2=genes, data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
 nrow(gvg_df2)
 
 ```

@@ -1,4 +1,4 @@
-#' makeGeneticVsGeneticTibble.data.frame
+#' make_genetic_vs_genetic_df.data.frame
 #'
 #' @param df data.frame object
 #' @param df2 Second data.frame object.  Default is NULL (just use the first data.frame)
@@ -21,11 +21,11 @@
 #' dat2 <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCLEsmall),
 #'   gene_ids = c('RBM5', 'LAP3', 'CFTR'), data_type = 'rnaseq', gene_col='gene_name')
 #'
-#' gvg_df <- makeGeneticVsGeneticTibble.data.frame(df=dat1, df2=dat2, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
+#' gvg_df <- make_genetic_vs_genetic_df.data.frame(df=dat1, df2=dat2, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
 #'  data_type1='rna', data_type2='rnaseq')
 #' gvg_df
 #' CancerCellLines::plotGeneticVsGeneticPoint(gvg_df)
-makeGeneticVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL, gene1=NULL, gene2=NULL, data_type1=NULL, data_type2=NULL) {
+make_genetic_vs_genetic_df.data.frame <- function(df, df2=NULL, sample_ids=NULL, gene1=NULL, gene2=NULL, data_type1=NULL, data_type2=NULL) {
 
     if(is.null(df2)) {df2 <- df}
 

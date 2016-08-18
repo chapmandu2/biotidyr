@@ -1,4 +1,4 @@
-#' makeRespVsGeneticTibble.data.frame
+#' make_response_vs_genetic_df.data.frame
 #'
 #' @param df data.frame object
 #' @param df2 Second data.frame object.  Default is NULL (just use the first data.frame)
@@ -20,10 +20,10 @@
 #' resp_data <- gather_response.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCLEsmall),
 #'                          resp_ids=c('AEW541', 'Nilotinib'), resp_col='ic50_published')
 #'
-#' rvg_df <- makeRespVsGeneticTibble.data.frame(df=genetic_data, df2=resp_data, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene_ids='RBM5',
+#' rvg_df <- make_response_vs_genetic_df.data.frame(df=genetic_data, df2=resp_data, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene_ids='RBM5',
 #'  data_types='rna', resp_ids='Nilotinib')
 #' rvg_df
-makeRespVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL, gene_ids=NULL, data_types=NULL, compound_ids=NULL, endpoints=NULL, resp_ids=NULL) {
+make_response_vs_genetic_df.data.frame <- function(df, df2=NULL, sample_ids=NULL, gene_ids=NULL, data_types=NULL, compound_ids=NULL, endpoints=NULL, resp_ids=NULL) {
 
     if(is.null(df2)) {df2 <- df}
 
