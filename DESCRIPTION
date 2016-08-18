@@ -1,7 +1,7 @@
 Package: biotidyr
 Type: Package
 Title: Tidy functions for MultiAssayExperiment and PharmacoGX objects
-Version: 0.2.10
+Version: 0.3.0
 Author: Phil Chapman
 Maintainer: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 Description: More about what it does (maybe more than one line)

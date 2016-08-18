@@ -27,7 +27,7 @@ makeRespVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL, ge
 
     if(is.null(df2)) {df2 <- df}
 
-    check_df_type(df, 'tall_df', dev_mode = TRUE)
+    check_df_format(df, 'tall_df', dev_mode = TRUE)
 
 
     #filtering
@@ -44,15 +44,15 @@ makeRespVsGeneticTibble.data.frame <- function(df, df2=NULL, sample_ids=NULL, ge
         df <- df %>% dplyr::filter(data_type %in% data_types)
     }
 
-    if(!is.null(compound_ids) & check_df_type(df2, 'resp_df')) {
+    if(!is.null(compound_ids) & check_df_format(df2, 'resp_df')) {
         df2 <- df2 %>% dplyr::filter(compound_id %in% compound_ids)
     }
 
-    if(!is.null(endpoints) & check_df_type(df2, 'resp_df')) {
+    if(!is.null(endpoints) & check_df_format(df2, 'resp_df')) {
         df2 <- df2 %>% dplyr::filter(endpoint %in% endpoints)
     }
 
-    if(!is.null(resp_ids) & check_df_type(df2, 'tall_df')) {
+    if(!is.null(resp_ids) & check_df_format(df2, 'tall_df')) {
         df2 <- df2 %>% dplyr::filter(assayed_id %in% resp_ids)
     }
 

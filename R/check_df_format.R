@@ -11,16 +11,16 @@
 #'
 #' @examples
 #' data(dietlein_data)
-#' biotidyr:::check_df_type(dietlein_data, 'resp_df')
+#' biotidyr:::check_df_format(dietlein_data, 'resp_df')
 #'
 #' data(example_tall_df)
-#' biotidyr:::check_df_type(example_tall_df, 'tall_df')
+#' biotidyr:::check_df_format(example_tall_df, 'tall_df')
 #'
 #' data(mtcars)
-#' biotidyr:::check_df_type(mtcars, 'tall_df')
-check_df_type <- function(df, format, dev_mode=FALSE) {
+#' biotidyr:::check_df_format(mtcars, 'tall_df')
+check_df_format <- function(df, format, dev_mode=FALSE) {
 
-    res <- identical(get_df_type(df), format)
+    res <- identical(get_df_format(df), format)
 
     if(dev_mode & !res) {
         stop(sprintf('data.frame should be in %s format, see ?data_formats', format))
