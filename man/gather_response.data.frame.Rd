@@ -8,7 +8,7 @@ gather_response.data.frame(x, sample_ids = NULL, compound_ids = NULL,
   endpoints = NULL, resp_ids = NULL)
 }
 \arguments{
-\item{x}{a data frame object}
+\item{x}{a data frame in either resp_df or tall_df format}
 
 \item{sample_ids}{A vector of sample ids.  Default is NULL (don't filter on sample id)}
 
@@ -19,7 +19,7 @@ gather_response.data.frame(x, sample_ids = NULL, compound_ids = NULL,
 \item{resp_ids}{A vector of response ids.  Default is NULL (don't filter on response id)}
 }
 \value{
-tibble
+a data frame in tall_df format
 }
 \description{
 Convert response data from a data frame into tidy format

@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Helper function to determine whether a supplied data frame is of any of the
-#' formats defined in the package.
+#' \code{\link{data-formats}} defined in the package.
 #'
 #' @param df query data frame
 #' @return string of data frame type
@@ -10,19 +10,19 @@
 #'
 #' @examples
 #' data(dietlein_data)
-#' tidyMultiAssay:::get_df_format(dietlein_data)
+#' get_df_format(dietlein_data)
 #'
 #' data(example_tall_df)
-#' tidyMultiAssay:::get_df_format(example_tall_df)
+#' get_df_format(example_tall_df)
 #'
 #' data(example_gvg_df)
-#' tidyMultiAssay:::get_df_format(example_gvg_df)
+#' get_df_format(example_gvg_df)
 #'
 #' data(example_rvg_df)
-#' tidyMultiAssay:::get_df_format(example_rvg_df)
+#' get_df_format(example_rvg_df)
 #'
 #' data(mtcars)
-#' tidyMultiAssay:::get_df_format(mtcars)
+#' get_df_format(mtcars)
 get_df_format <- function(df) {
 
     compare_df <- function(query_df, template_df, format_id) {

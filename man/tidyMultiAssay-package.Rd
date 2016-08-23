@@ -4,7 +4,6 @@
 \name{tidyMultiAssay-package}
 \alias{tidyMultiAssay}
 \alias{tidyMultiAssay-package}
-\alias{tidymultiassay}
 \title{Tidy data from PharmacoGx and MultiAssayExperiment objects}
 \description{
 The \pkg{PharmacoGx} and \pkg{MultiAssayExperiment} packages provide containers

@@ -19,7 +19,7 @@ gather.ExpressionSet(x, sample_ids = NULL, gene_ids = NULL,
 \item{gene_col}{Name of the column in the rowData data frame to use for filtering on gene id}
 }
 \value{
-tibble
+a data frame in tall_df format
 }
 \description{
 Convert an ExpressionSet object into tidy format

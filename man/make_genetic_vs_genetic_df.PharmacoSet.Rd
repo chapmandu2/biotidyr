@@ -26,7 +26,7 @@ make_genetic_vs_genetic_df.PharmacoSet(x, sample_ids = NULL, gene1, gene2,
 \item{gene_col}{Name of the column in the rowData data frame to use for filtering on gene id}
 }
 \value{
-tibble
+a data frame in gvg_df format
 }
 \description{
 Create a genetic_vs_genetic data frame from the data in a \linkS4class{PharmacoSet}

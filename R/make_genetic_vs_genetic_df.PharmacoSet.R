@@ -13,7 +13,7 @@
 #' @param sample_col Name of the column in the pData data frame to use for filtering on sample id
 #' @param gene_col Name of the column in the rowData data frame to use for filtering on gene id
 #'
-#' @return tibble
+#' @return a data frame in gvg_df format
 #' @export
 #'
 #' @examples

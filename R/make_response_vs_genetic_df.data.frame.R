@@ -4,8 +4,9 @@
 #' @description
 #' Create a response_vs_genetic data frame from two tall data frames
 #'
-#' @param df data.frame object
-#' @param df2 Second data.frame object.  Default is NULL (just use the first data.frame)
+#' @param df a data frame in tall_df format containing the genetic data (and response data if df2 not set)
+#' @param df2 a data frame in either tall_df or resp_df format containing the response data.
+#'  Default is NULL (just use df)
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)
 #' @param gene_ids Gene ids in df.  Default is NULL (don't filter on gene id)
 #' @param data_types Data type for genetic data.  Default is NULL (don't filter on data type)
@@ -13,7 +14,7 @@
 #' @param endpoints A vector of endpoints.  Default is NULL (don't filter on endpoint)
 #' @param resp_ids A vector of response ids.  Default is NULL (don't filter on response id)
 #'
-#' @return tibble
+#' @return a data frame in rvg_df format
 #' @export
 #'
 #' @examples

@@ -1,11 +1,14 @@
 Package: tidyMultiAssay
 Type: Package
 Title: Tidy functions for MultiAssayExperiment and PharmacoGX objects
-Version: 0.4.0
-Author: Phil Chapman
+Version: 0.4.1
+Date: 2016-08-23
+Author: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 Maintainer: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 Description: Provides a set of utility functions for combining and subsetting genomic and pharmacological response data from data frame, MultiAssayExpriment and PharmacoSet objects in a tidy format.
-License: GPL
+URL: https://github.com/chapmandu2/tidyMultiAssay
+BugReports: https://github.com/chapmandu2/tidyMultiAssay/issues
+License: GPL-2
 LazyData: TRUE
 Imports:
     dplyr,

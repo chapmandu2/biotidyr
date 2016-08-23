@@ -9,9 +9,10 @@ make_response_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
   endpoints = NULL, resp_ids = NULL)
 }
 \arguments{
-\item{df}{data.frame object}
+\item{df}{a data frame in tall_df format containing the genetic data (and response data if df2 not set)}
 
-\item{df2}{Second data.frame object.  Default is NULL (just use the first data.frame)}
+\item{df2}{a data frame in either tall_df or resp_df format containing the response data.
+Default is NULL (just use df)}
 
 \item{sample_ids}{A vector of sample ids.  Default is NULL (don't filter on sample id)}
 
@@ -26,7 +27,7 @@ make_response_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
 \item{resp_ids}{A vector of response ids.  Default is NULL (don't filter on response id)}
 }
 \value{
-tibble
+a data frame in rvg_df format
 }
 \description{
 Create a response_vs_genetic data frame from two tall data frames

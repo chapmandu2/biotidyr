@@ -4,11 +4,11 @@
 \alias{convert_ids}
 \title{Converts sample id's from one format to another using a data frame with alternate information.}
 \usage{
-convert_ids(data, id_data = NULL, from_col = "native_id",
+convert_ids(df, id_data = NULL, from_col = "native_id",
   to_col = "unified_id", other_cols = NULL)
 }
 \arguments{
-\item{data}{A data frame with a column named sample_id}
+\item{df}{A data frame with a column named sample_id}
 
 \item{id_data}{A data frame containing information for id conversion}
 
@@ -19,7 +19,7 @@ convert_ids(data, id_data = NULL, from_col = "native_id",
 \item{other_cols}{Other columns to include in the output}
 }
 \value{
-a tibble
+a data frame
 }
 \description{
 Converts sample id's from one format to another using a data frame with alternate information.
@@ -31,9 +31,9 @@ dat1 <- gather.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'), gene_ids
  data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'))
 
 data('CancerCellLineIDs')
-convert_ids(data=dat1, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'),
+convert_ids(df=dat1, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'),
 from_col='alt_id', to_col='unified_id')
-convert_ids(data=dat1, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'),
+convert_ids(df=dat1, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'),
 from_col='alt_id', to_col='unified_id', other_cols='tissue')
 
 }

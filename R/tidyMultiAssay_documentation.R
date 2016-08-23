@@ -20,6 +20,6 @@
 #'
 #' @docType package
 #' @name tidyMultiAssay-package
-#' @aliases tidyMultiAssay tidymultiassay
+#' @aliases tidyMultiAssay
 #' @author Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 NULL

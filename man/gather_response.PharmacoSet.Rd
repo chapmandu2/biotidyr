@@ -17,7 +17,7 @@ gather_response.PharmacoSet(x, sample_ids = NULL, resp_ids = NULL,
 \item{resp_col}{Response variable to retrieve}
 }
 \value{
-tibble
+a data frame in tall_df format
 }
 \description{
 Convert response data from a \linkS4class{PharmacoSet} into tidy format

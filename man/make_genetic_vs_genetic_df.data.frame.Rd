@@ -8,9 +8,9 @@ make_genetic_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
   gene1 = NULL, gene2 = NULL, data_type1 = NULL, data_type2 = NULL)
 }
 \arguments{
-\item{df}{data.frame object}
+\item{df}{a data frame in tall_df format containing genetic data for feature 1 (and feature 2 if df2 is NULL)}
 
-\item{df2}{Second data.frame object.  Default is NULL (just use the first data.frame)}
+\item{df2}{a data frame in tall_df format containing genetic data for feature 2  Default is NULL (just use df)}
 
 \item{sample_ids}{A vector of sample ids.  Default is NULL (don't filter on sample id)}
 
@@ -27,7 +27,7 @@ make_genetic_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
 \item{gene_col}{Name of the column in the rowData data frame to use for filtering on gene id}
 }
 \value{
-tibble
+a data frame in gvg_df format
 }
 \description{
 Create a genetic_vs_genetic data frame from two tall data frames

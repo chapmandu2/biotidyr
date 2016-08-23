@@ -4,13 +4,13 @@
 #' @description
 #' Convert response data from a data frame into tidy format
 #'
-#' @param x a data frame object
+#' @param x a data frame in either resp_df or tall_df format
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)
 #' @param compound_ids A vector of compound ids.  Default is NULL (don't filter on compound id)
 #' @param endpoints A vector of endpoints.  Default is NULL (don't filter on endpoint)
 #' @param resp_ids A vector of response ids.  Default is NULL (don't filter on response id)
 #'
-#' @return tibble
+#' @return a data frame in tall_df format
 #' @export
 #'
 #' @examples

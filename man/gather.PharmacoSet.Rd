@@ -29,7 +29,7 @@ gather.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL, resp_ids = NULL,
 \item{resp_df}{Data frame to process response data from (rather than PharmcaGx object)}
 }
 \value{
-a tibble
+a data frame in tall_df format
 }
 \description{
 Convert a \linkS4class{PharmacoSet} object into tidy format.  This is essentially a wrapper function

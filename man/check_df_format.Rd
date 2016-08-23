@@ -9,7 +9,7 @@ check_df_format(df, format, dev_mode = FALSE)
 \arguments{
 \item{df}{query data frame}
 
-\item{format}{format to test - see ?data_formats}
+\item{format}{format to test - see \code{\link{data-formats}}}
 
 \item{dev_mode}{stop if test is false.  Default is FALSE}
 }
@@ -17,17 +17,17 @@ check_df_format(df, format, dev_mode = FALSE)
 string of data frame type
 }
 \description{
-Helper function to determine whether a supplied data frame is a specific fomat
+Helper function to determine whether a supplied data frame is a specific \code{\link{data-formats}}
 defined in the package.  Either returns a boolean or throws a stop.
 }
 \examples{
 data(dietlein_data)
-tidyMultiAssay:::check_df_format(dietlein_data, 'resp_df')
+check_df_format(dietlein_data, 'resp_df')
 
 data(example_tall_df)
-tidyMultiAssay:::check_df_format(example_tall_df, 'tall_df')
+check_df_format(example_tall_df, 'tall_df')
 
 data(mtcars)
-tidyMultiAssay:::check_df_format(mtcars, 'tall_df')
+check_df_format(mtcars, 'tall_df')
 }
 

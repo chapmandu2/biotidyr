@@ -15,7 +15,7 @@
 #' @param data_types Names of the components of the PharmacoSet object to gather
 #' @param resp_df Data frame to process response data from (rather than PharmcaGx object)
 #'
-#' @return a tibble
+#' @return a data frame in tall_df format
 #' @export
 #'
 #' @examples

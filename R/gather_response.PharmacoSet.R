@@ -9,7 +9,7 @@
 #' @param resp_ids A vector of response ids.  Default is NULL (don't filter on response id)
 #' @param resp_col Response variable to retrieve
 #'
-#' @return tibble
+#' @return a data frame in tall_df format
 #' @export
 #'
 #' @examples

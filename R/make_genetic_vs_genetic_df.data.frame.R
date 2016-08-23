@@ -4,8 +4,8 @@
 #' @description
 #' Create a genetic_vs_genetic data frame from two tall data frames
 #'
-#' @param df data.frame object
-#' @param df2 Second data.frame object.  Default is NULL (just use the first data.frame)
+#' @param df a data frame in tall_df format containing genetic data for feature 1 (and feature 2 if df2 is NULL)
+#' @param df2 a data frame in tall_df format containing genetic data for feature 2  Default is NULL (just use df)
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)
 #' @param gene1 First gene(s)
 #' @param gene2 Second gene(s)
@@ -14,7 +14,7 @@
 #' @param sample_col Name of the column in the pData data frame to use for filtering on sample id
 #' @param gene_col Name of the column in the rowData data frame to use for filtering on gene id
 #'
-#' @return tibble
+#' @return a data frame in gvg_df format
 #' @export
 #'
 #' @examples

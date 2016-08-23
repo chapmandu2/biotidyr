@@ -21,7 +21,7 @@ gather_assay.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL,
 \item{gene_col}{Name of the column in the rowData data frame to use for filtering on gene id}
 }
 \value{
-a tibble
+a data frame in tall_df format
 }
 \description{
 Convert assay data from a \linkS4class{PharmacoSet} into tidy format
