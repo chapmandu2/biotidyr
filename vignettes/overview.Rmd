@@ -24,7 +24,7 @@ library(ggplot2)
 
 Exemplify functions for generating tidy data from PharmacoSet and MultiAssayExperient objects.
 
-## Quick example
+## Quick start
 
 A PharmacoSet object contains molecular profiling and drug response data for collections of cell lines.  The molecular profiling data is stored in an ExpressionSet object
 
@@ -53,16 +53,12 @@ gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'),
 
 Note that we can customise which identifier we want to use by specifying the sample\_col and gene\_col parameters.
 
-## gather.PharmacoSet
-
 The `gather.PharmacoSet` function combined data from multiple sources and reports in a tidy format with a single data point per row:
 
 ```{r}
 gather.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR'),
   data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'))
 ```
-
-## make\_genetic\_\vs\_genetic_df.PharmacoSet
 
 The `make_genetic_vs_genetic_df.PharmacoSet` function generates a data frame with one pair of genetic feature data per row.
 
@@ -104,4 +100,100 @@ mod_df %>% dplyr::select(-data,-mod) %>% tidyr::unnest()
 
 ```
 
+## Data formats
 
+There are four data frame formats used in the tidyMultiAssay package:
+
+- tall\_df: Common currency minimal data frame which can contain any data type (see `data(example_tall_df)`)
+- resp\_df: Used to store user specified response data from a cell panel screen or siRNA screen (see `data(dietlein_data)`)
+- gvg\_df: Genetic vs Genetic data frame used to model or plot one set of genetic features against another set (see `data(example_gvg_df)`)
+- rvg\_df: Response vs Genetic data frame used to model or plot a set of response data against a set of genetic features (see `data(example_rvg_df)`)
+
+Since the same data frame format with the same column names can be used for limitless combinations of genetic and response data, it is easy to create reusable analysis and visualisation functions.  
+
+```{r}
+#tall_df example
+data(example_tall_df)
+dplyr::tbl_df(example_tall_df)
+
+#resp_df example
+data(dietlein_data)
+dplyr::tbl_df(dietlein_data)
+
+#gvg_df example
+data(example_gvg_df)
+dplyr::tbl_df(example_gvg_df)
+
+#rvg_df example
+data(example_rvg_df)
+dplyr::tbl_df(example_rvg_df)
+
+```
+
+## Combining data of different types
+
+Converting data in a PharmacoSet or MultiAssayExperiment object into a standardised data frame format makes combining data from different sources very simple since one can just be appended to another to create another tall_df formatted data frame, or one can be joined to another to create the response vs genetic or genetic vs genetic data frames.  By following the principles of tidy data, feature data is stored in rows rather than columns to make the data frames as generic and reusable as possible.  
+
+For example, response and assay data can be gathered seperately from a PharmacoSet object using the `gather_response.PharmacoSet` and `gather_response.PharmacoSet` functions :
+```{r}
+resp_data <- gather_response.PharmacoSet(CCLEsmall, sample_ids = NULL, resp_ids = c('lapatinib', 'Erlotinib', 'PLX4720'))
+assay_data <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=NULL, gene_ids = c('BRAF', 'ERBB2', 'EGFR', 'NQO1'), 'rna', gene_col='Symbol')
+```
+
+Or in a single data frame via a command using the `gather.PharmacoSet` function:
+```{r}
+combined_data <- gather.PharmacoSet(CCLEsmall, sample_ids=NULL, data_types='rna', 
+                                    gene_col='Symbol', gene_ids = c('BRAF', 'ERBB2', 'EGFR', 'NQO1'),
+                                    resp_col = "ic50_published", resp_ids = c('lapatinib', 'Erlotinib', 'PLX4720'))
+```
+
+The gather.PharmacoSet function can also be used to extract data from multiple assay types:
+```{r}
+combined_data2 <- gather.PharmacoSet(CCLEsmall, sample_ids=NULL, data_types=c('rna', 'rnaseq'), 
+                                    gene_col=c('Symbol', 'gene_name'), gene_ids = c('RBM5', 'NQO1', "STPG1", "NIPAL3","LAS1L","ENPP4","SEMA3F","CFTR"))
+```
+
+
+These data frames can then be combined using the generic `make_genetic_vs_genetic_df.data.frame` and `make_response_vs_genetic_df.data.frame` functions:
+
+```{r}
+gvg1 <- make_genetic_vs_genetic_df.data.frame(assay_data)
+rvg1 <- make_response_vs_genetic_df.data.frame(assay_data, resp_data)
+```
+
+Note that by default a number of arguments for each function are set to NULL.  More control over which genes and samples are included can be gained by setting these parameters, for example:
+```{r}
+gvg2 <- make_genetic_vs_genetic_df.data.frame(combined_data2, gene1=c('RBM5', "STPG1"), gene2=c('RBM5', "STPG1"))
+
+```
+
+Alternatively, the resultant data frame can be filtered to make downstream analyses more useful:
+```{r fig.width=6, fig.height=6}
+gvg3 <- gvg2 %>%
+    dplyr::filter(gene1 == gene2, feature_type1=='rna', feature_type2=='rnaseq')
+
+ggplot(gvg2, aes(feature_value1, feature_value2)) +
+    geom_point() + geom_smooth(method='lm') +
+    facet_grid(feature_name1~feature_name2)
+
+ggplot(gvg3, aes(feature_value1, feature_value2)) +
+    geom_point() + geom_smooth(method='lm') +
+    facet_grid(feature_type1+gene1~feature_type2)
+
+```
+
+## Using custom data
+
+Since only four different data frame formats are defined, data can come from custom sources as well as from PharmacoSet and MultiAssayExperiment objects.  All that is required is to put the data frame into the appropriate data frame format and use either the `check_df_format` or `get_df_format` function to ensure that the format is correct:
+
+```{r}
+test_df <- dplyr::data_frame(sample_id=c('A375_SKIN', 'DMS114_LUNG', 'NCIH1155_LUNG'),
+                             assayed_id=rep('BRAF', 3),
+                             data_type=rep('qPCR', 3),
+                             original=as.character(c(1,2,3)),
+                             value=c(1,2,3))
+get_df_format(test_df)
+check_df_format(test_df, 'tall_df')
+```
+
+## Combing data from different data sources
