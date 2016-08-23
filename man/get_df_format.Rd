@@ -18,18 +18,18 @@ formats defined in the package.
 }
 \examples{
 data(dietlein_data)
-biotidyr:::get_df_format(dietlein_data)
+tidyMultiAssay:::get_df_format(dietlein_data)
 
 data(example_tall_df)
-biotidyr:::get_df_format(example_tall_df)
+tidyMultiAssay:::get_df_format(example_tall_df)
 
 data(example_gvg_df)
-biotidyr:::get_df_format(example_gvg_df)
+tidyMultiAssay:::get_df_format(example_gvg_df)
 
 data(example_rvg_df)
-biotidyr:::get_df_format(example_rvg_df)
+tidyMultiAssay:::get_df_format(example_rvg_df)
 
 data(mtcars)
-biotidyr:::get_df_format(mtcars)
+tidyMultiAssay:::get_df_format(mtcars)
 }
 

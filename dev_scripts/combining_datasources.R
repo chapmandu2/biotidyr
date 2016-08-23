@@ -2,7 +2,7 @@
 
 #how to download a PSet:
 library(PharmacoGx)
-library(biotidyr)
+library(tidyMultiAssay)
 library(dplyr)
 
 data('CancerCellLineIDs')

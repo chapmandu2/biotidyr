@@ -19,7 +19,7 @@
 #' there WILL BE A YOUTUBE VID.
 #'
 #' @docType package
-#' @name biotidyr-package
-#' @aliases biotidyr
+#' @name tidyMultiAssay-package
+#' @aliases tidyMultiAssay tidymultiassay
 #' @author Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 NULL

@@ -1,7 +1,7 @@
-Package: biotidyr
+Package: tidyMultiAssay
 Type: Package
 Title: Tidy functions for MultiAssayExperiment and PharmacoGX objects
-Version: 0.3.3
+Version: 0.4.0
 Author: Phil Chapman
 Maintainer: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 Description: Provides a set of utility functions for combining and subsetting genomic and pharmacological response data from data frame, MultiAssayExpriment and PharmacoSet objects in a tidy format.

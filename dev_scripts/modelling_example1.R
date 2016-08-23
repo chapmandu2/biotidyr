@@ -1,5 +1,5 @@
 library(dplyr)
-library(biotidyr)
+library(tidyMultiAssay)
 library(PharmacoGx)
 
 load('~/BigData/PSets/CCLE.RData')

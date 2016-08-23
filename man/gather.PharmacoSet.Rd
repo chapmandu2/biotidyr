@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather.PharmacoSet.R
 \name{gather.PharmacoSet}
 \alias{gather.PharmacoSet}
-\title{Convert a \linkS4class{PharmacoSet} object into tidy format}
+\title{Convert a PharmacoSet object into tidy format}
 \usage{
 gather.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL, resp_ids = NULL,
   sample_col = "cellid", gene_col = c("Symbol", "gene_name"),

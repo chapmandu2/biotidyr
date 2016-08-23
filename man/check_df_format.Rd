@@ -22,12 +22,12 @@ defined in the package.  Either returns a boolean or throws a stop.
 }
 \examples{
 data(dietlein_data)
-biotidyr:::check_df_format(dietlein_data, 'resp_df')
+tidyMultiAssay:::check_df_format(dietlein_data, 'resp_df')
 
 data(example_tall_df)
-biotidyr:::check_df_format(example_tall_df, 'tall_df')
+tidyMultiAssay:::check_df_format(example_tall_df, 'tall_df')
 
 data(mtcars)
-biotidyr:::check_df_format(mtcars, 'tall_df')
+tidyMultiAssay:::check_df_format(mtcars, 'tall_df')
 }
 
