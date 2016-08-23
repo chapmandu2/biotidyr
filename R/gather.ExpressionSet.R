@@ -1,5 +1,7 @@
-#' gather.ExpressionSet
+#' @title
+#' Convert an ExpressionSet object into tidy format
 #'
+#' @description
 #' Convert an ExpressionSet object into tidy format
 #'
 #' @param x An ExpressionSet

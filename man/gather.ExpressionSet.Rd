@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather.ExpressionSet.R
 \name{gather.ExpressionSet}
 \alias{gather.ExpressionSet}
-\title{gather.ExpressionSet}
+\title{Convert an ExpressionSet object into tidy format}
 \usage{
 gather.ExpressionSet(x, sample_ids = NULL, gene_ids = NULL,
   sample_col = "cellid", gene_col = "Symbol")

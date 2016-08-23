@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather_assay.PharmacoSet.R
 \name{gather_assay.PharmacoSet}
 \alias{gather_assay.PharmacoSet}
-\title{gather_assay.PharmacoSet}
+\title{Convert assay data from a \linkS4class{PharmacoSet} into tidy format}
 \usage{
 gather_assay.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL,
   data_type = "rna", sample_col = "cellid", gene_col = "Symbol")
@@ -24,7 +24,7 @@ gather_assay.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL,
 a tibble
 }
 \description{
-gather_assay.PharmacoSet
+Convert assay data from a \linkS4class{PharmacoSet} into tidy format
 }
 \examples{
 data('CCLEsmall', package='PharmacoGx')

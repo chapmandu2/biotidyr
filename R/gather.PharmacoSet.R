@@ -1,4 +1,9 @@
-#' gather.PharmacoSet
+#' @title
+#' Convert a PharmacoSet object into tidy format
+#'
+#' @description
+#' Convert a \linkS4class{PharmacoSet} object into tidy format.  This is essentially a wrapper function
+#' for \code{\link{gather_response.PharmacoSet}} and \code{\link{gather_assay.PharmacoSet}}
 #'
 #' @param x PharmacoSet object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)

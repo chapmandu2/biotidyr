@@ -1,4 +1,8 @@
-#' make_genetic_vs_genetic_df.data.frame
+#' @title
+#' Create a genetic_vs_genetic data frame from two tall data frames
+#'
+#' @description
+#' Create a genetic_vs_genetic data frame from two tall data frames
 #'
 #' @param df data.frame object
 #' @param df2 Second data.frame object.  Default is NULL (just use the first data.frame)

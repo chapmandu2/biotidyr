@@ -1,4 +1,8 @@
-#' gather_response.data.frame
+#' @title
+#' Convert response data from a data frame into tidy format
+#'
+#' @description
+#' Convert response data from a data frame into tidy format
 #'
 #' @param x a data frame object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)

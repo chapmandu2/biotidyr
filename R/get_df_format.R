@@ -1,5 +1,6 @@
-#' Determine type of data frame
+#' @title Determine format of data frame
 #'
+#' @description
 #' Helper function to determine whether a supplied data frame is of any of the
 #' formats defined in the package.
 #'

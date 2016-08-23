@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather_response.data.frame.R
 \name{gather_response.data.frame}
 \alias{gather_response.data.frame}
-\title{gather_response.data.frame}
+\title{Convert response data from a data frame into tidy format}
 \usage{
 gather_response.data.frame(x, sample_ids = NULL, compound_ids = NULL,
   endpoints = NULL, resp_ids = NULL)
@@ -22,7 +22,7 @@ gather_response.data.frame(x, sample_ids = NULL, compound_ids = NULL,
 tibble
 }
 \description{
-gather_response.data.frame
+Convert response data from a data frame into tidy format
 }
 \examples{
 data('dietlein_data')

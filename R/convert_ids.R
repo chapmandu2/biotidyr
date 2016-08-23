@@ -1,5 +1,7 @@
-#' convert_ids
+#' @title
+#' Converts sample id's from one format to another using a data frame with alternate information.
 #'
+#' @description
 #' Converts sample id's from one format to another using a data frame with alternate information.
 #'
 #' @param data A data frame with a column named sample_id

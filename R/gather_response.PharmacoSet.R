@@ -1,4 +1,8 @@
-#' gather_response.PharmacoSet
+#' @title
+#' Convert response data from a PharmacoSet into tidy format
+#'
+#' @description
+#' Convert response data from a \linkS4class{PharmacoSet} into tidy format
 #'
 #' @param x PharmacoSet object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)

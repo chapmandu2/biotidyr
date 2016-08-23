@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert_ids.R
 \name{convert_ids}
 \alias{convert_ids}
-\title{convert_ids}
+\title{Converts sample id's from one format to another using a data frame with alternate information.}
 \usage{
 convert_ids(data, id_data = NULL, from_col = "native_id",
   to_col = "unified_id", other_cols = NULL)

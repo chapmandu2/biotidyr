@@ -2,9 +2,11 @@
 title: "Overview of biotidyr"
 author: "Phil Chapman"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette: 
+    toc: true
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Overview of the biotidyr package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +16,7 @@ library(dplyr)
 library(PharmacoGx)
 library(biotidyr)
 library(ggplot2)
-
+# note - how to export as pdf rmarkdown::render('vignettes/Overview.Rmd', 'pdf_document', output_dir='~/Desktop')
 ```
 
 

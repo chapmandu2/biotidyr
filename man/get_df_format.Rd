@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_df_format.R
 \name{get_df_format}
 \alias{get_df_format}
-\title{Determine type of data frame}
+\title{Determine format of data frame}
 \usage{
 get_df_format(df)
 }

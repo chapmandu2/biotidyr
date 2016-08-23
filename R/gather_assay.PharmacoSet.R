@@ -1,4 +1,8 @@
-#' gather_assay.PharmacoSet
+#' @title
+#' Convert assay data from a PharmacoSet into tidy format
+#'
+#' @description
+#' Convert assay data from a \linkS4class{PharmacoSet} into tidy format
 #'
 #' @param x A PharmacoSet object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)

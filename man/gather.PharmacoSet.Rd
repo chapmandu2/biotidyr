@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather.PharmacoSet.R
 \name{gather.PharmacoSet}
 \alias{gather.PharmacoSet}
-\title{gather.PharmacoSet}
+\title{Convert a \linkS4class{PharmacoSet} object into tidy format}
 \usage{
 gather.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL, resp_ids = NULL,
   sample_col = "cellid", gene_col = c("Symbol", "gene_name"),
@@ -32,7 +32,8 @@ gather.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL, resp_ids = NULL,
 a tibble
 }
 \description{
-gather.PharmacoSet
+Convert a \linkS4class{PharmacoSet} object into tidy format.  This is essentially a wrapper function
+for \code{\link{gather_response.PharmacoSet}} and \code{\link{gather_assay.PharmacoSet}}
 }
 \examples{
 data('CCLEsmall', package='PharmacoGx')

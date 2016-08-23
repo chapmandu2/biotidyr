@@ -1,5 +1,7 @@
+#' @title
 #' Checks the format of a data frame
 #'
+#' @description
 #' Helper function to determine whether a supplied data frame is a specific fomat
 #' defined in the package.  Either returns a boolean or throws a stop.
 #'

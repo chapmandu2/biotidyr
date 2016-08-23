@@ -1,4 +1,8 @@
-#' make_genetic_vs_genetic_df.PharmacoSet
+#' @title
+#' Create a genetic_vs_genetic data frame from the data in a PharmacoSet
+#'
+#' @description
+#' Create a genetic_vs_genetic data frame from the data in a \linkS4class{PharmacoSet}
 #'
 #' @param x PharmacoSet object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)

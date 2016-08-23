@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_genetic_vs_genetic_df.data.frame.R
 \name{make_genetic_vs_genetic_df.data.frame}
 \alias{make_genetic_vs_genetic_df.data.frame}
-\title{make_genetic_vs_genetic_df.data.frame}
+\title{Create a genetic_vs_genetic data frame from two tall data frames}
 \usage{
 make_genetic_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
   gene1 = NULL, gene2 = NULL, data_type1 = NULL, data_type2 = NULL)
@@ -30,7 +30,7 @@ make_genetic_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
 tibble
 }
 \description{
-make_genetic_vs_genetic_df.data.frame
+Create a genetic_vs_genetic data frame from two tall data frames
 }
 \examples{
 data('CCLEsmall', package='PharmacoGx')

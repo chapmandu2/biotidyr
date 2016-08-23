@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_response_vs_genetic_df.data.frame.R
 \name{make_response_vs_genetic_df.data.frame}
 \alias{make_response_vs_genetic_df.data.frame}
-\title{make_response_vs_genetic_df.data.frame}
+\title{Create a response_vs_genetic data frame from two tall data frames}
 \usage{
 make_response_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
   gene_ids = NULL, data_types = NULL, compound_ids = NULL,
@@ -29,7 +29,7 @@ make_response_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
 tibble
 }
 \description{
-make_response_vs_genetic_df.data.frame
+Create a response_vs_genetic data frame from two tall data frames
 }
 \examples{
 data('CCLEsmall', package='PharmacoGx')

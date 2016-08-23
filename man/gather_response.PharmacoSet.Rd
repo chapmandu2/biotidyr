@@ -2,7 +2,7 @@
 % Please edit documentation in R/gather_response.PharmacoSet.R
 \name{gather_response.PharmacoSet}
 \alias{gather_response.PharmacoSet}
-\title{gather_response.PharmacoSet}
+\title{Convert response data from a \linkS4class{PharmacoSet} into tidy format}
 \usage{
 gather_response.PharmacoSet(x, sample_ids = NULL, resp_ids = NULL,
   resp_col = "ic50_published")
@@ -20,7 +20,7 @@ gather_response.PharmacoSet(x, sample_ids = NULL, resp_ids = NULL,
 tibble
 }
 \description{
-gather_response.PharmacoSet
+Convert response data from a \linkS4class{PharmacoSet} into tidy format
 }
 \examples{
 data('CCLEsmall', package='PharmacoGx')
