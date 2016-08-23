@@ -1,7 +1,7 @@
 Package: tidyMultiAssay
 Type: Package
 Title: Tidy functions for MultiAssayExperiment and PharmacoGX objects
-Version: 0.4.2
+Version: 0.4.3
 Date: 2016-08-23
 Author: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>
 Maintainer: Phil Chapman <phil.chapman@cruk.manchester.ac.uk>

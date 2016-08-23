@@ -181,10 +181,43 @@ ggplot(gvg3, aes(feature_value1, feature_value2)) +
     facet_grid(feature_type1+gene1~feature_type2)
 
 ```
+It is also possible to do the entire operation in one function call using the `make_genetic_vs_genetic_df.PharmacoSet` function.
+
+## Combining data from different data sources
+Data from different PharmacoSet or MultiAssayExperiment objects can be combined by first converting it to the tall\_df data frame format and then using `make_genetic_vs_genetic_df.data.frame` or `make_response_vs_genetic_df.data.frame` functions.
+
+```{r}
+ccle_assay_data <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=NULL,                                             gene_ids = c('RBM5', "STPG1", 'CFTR', 'MTMR7'), data_type='rna', gene_col='Symbol')
+
+data('GDSCsmall', package='PharmacoGx')
+gdsc_assay_data <- gather_assay.PharmacoSet(GDSCsmall, sample_ids=NULL,                                             gene_ids = c('RBM5', "STPG1", 'CFTR', 'MTMR7'), data_type='rna', gene_col='Symbol')
+
+
+gvg4 <- make_genetic_vs_genetic_df.data.frame(df=ccle_assay_data, df2=gdsc_assay_data)
+gvg5 <- gvg4 %>% dplyr::filter(gene1==gene2)
+ggplot(gvg5, aes(feature_value1, feature_value2)) +
+    geom_point() + geom_smooth(method='lm') + xlab('CCLE') + ylab('GDSC') +
+    facet_grid(~gene1) + theme_bw()
+
+```
+
+## Converting sample ids
+
+When combining data from different sources, there is no guarantee that the sample identifies used are the same.  In particular this is an issue when using cell line data from different experiments, although the PharmacoSet object provided in the PharmacoGx package do an excellent job of unifying the cell line id's.
+
+If sample identifiers do need to be unified, the `convert_ids` function can be used.  This takes any data frame with a column named sample\_id (for example a tall\_df) and another data frame with at least two columns, one of which represents the sample id pre-conversion, and the other representing the sample id post-conversion.  An example data frame is provided with this package that provides conversion information for a variety of identifier schemas for cancer cell lines, but user generated ones can also be used:
+
+```{r}
+data("CancerCellLineIDs")
+CancerCellLineIDs
+convert_ids(df=example_tall_df, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'), from_col='alt_id', to_col='unified_id')
+```
+
+The function can also be used to append additional columns to the resultant data frame by setting the `other_cols` parameter.
 
 ## Using custom data
 
-Since only four different data frame formats are defined, data can come from custom sources as well as from PharmacoSet and MultiAssayExperiment objects.  All that is required is to put the data frame into the appropriate data frame format and use either the `check_df_format` or `get_df_format` function to ensure that the format is correct:
+All that is required is to put the custom data frame into either the tall\_df or resp\_df data frame format and then use either the `check_df_format` or `get_df_format` function to ensure that the format is correct:
 
 ```{r}
 test_df <- dplyr::data_frame(sample_id=c('A375_SKIN', 'DMS114_LUNG', 'NCIH1155_LUNG'),
@@ -196,4 +229,22 @@ get_df_format(test_df)
 check_df_format(test_df, 'tall_df')
 ```
 
-## Combing data from different data sources
+Once the data is in the right format, it can be combined with data that originates from PharmacoSet or MultiAssayExperiment objects as described in the previous section on combining data from different sources.  In the example the ids also need to be converted:
+
+```{r}
+data("dietlein_data")
+gdat1 <- gather.PharmacoSet(CCLEsmall, gene_ids = c('BRAF', 'EGFR', 'TP53'), gene_col = c('Symbol', 'Symbol'), data_types = c("rna", "mutation"))
+gdat1 <- gdat1 %>% convert_ids(id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'), from_col='alt_id', to_col='unified_id')
+
+#now create response_vs_genetic
+dietlein_rvg <- make_response_vs_genetic_df.data.frame(gdat1, dietlein_data)
+dietlein_rvg
+
+```
+
+
+
+
+
+
+
