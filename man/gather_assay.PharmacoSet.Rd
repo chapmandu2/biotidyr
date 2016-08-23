@@ -31,10 +31,10 @@ data('CCLEsmall', package='PharmacoGx')
 gather_assay.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'),
                          gene_ids=c('BRAF', 'EGFR'), data_type='rna')
 set.seed(20)
-gather_assay.PharmacoSet(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
+gather_assay.PharmacoSet(CCLEsmall, sample_ids=sample(PharmacoGx::cellNames(CCLEsmall), 30),
                          gene_ids=c('BRAF', 'EGFR'), data_type='mutation')
 
-gather_assay.PharmacoSet(CCLEsmall, sample_ids=sample(cellNames(CCLEsmall), 30),
+gather_assay.PharmacoSet(CCLEsmall, sample_ids=sample(PharmacoGx::cellNames(CCLEsmall), 30),
  gene_ids=c('AK2', 'TFP1'), data_type='rnaseq', gene_col='gene_name')
 
 }

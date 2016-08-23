@@ -44,13 +44,10 @@ make_response_vs_genetic_df.data.frame <- function(df, df2=NULL, sample_ids=NULL
         df <- df %>% dplyr::filter(data_type %in% data_types)
     }
 
-    if(!is.null(compound_ids) & check_df_format(df2, 'resp_df')) {
-        df2 <- df2 %>% dplyr::filter(compound_id %in% compound_ids)
+    if(check_df_format(df2, 'resp_df')) {
+        df2 <- gather_response.data.frame(df2, compound_ids = compound_ids, endpoints = endpoints)
     }
 
-    if(!is.null(endpoints) & check_df_format(df2, 'resp_df')) {
-        df2 <- df2 %>% dplyr::filter(endpoint %in% endpoints)
-    }
 
     if(!is.null(resp_ids) & check_df_format(df2, 'tall_df')) {
         df2 <- df2 %>% dplyr::filter(assayed_id %in% resp_ids)

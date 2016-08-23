@@ -43,6 +43,5 @@ dat2 <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=PharmacoGx::cellNames(CCL
 gvg_df <- make_genetic_vs_genetic_df.data.frame(df=dat1, df2=dat2, sample_ids=PharmacoGx::cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
  data_type1='rna', data_type2='rnaseq')
 gvg_df
-CancerCellLines::plotGeneticVsGeneticPoint(gvg_df)
 }
 
