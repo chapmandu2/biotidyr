@@ -1,5 +1,5 @@
 ---
-title: "Overview of tidyMultiAssay"
+title: "Overview of the tidyMultiAssay package"
 author: "Phil Chapman"
 date: "`r Sys.Date()`"
 output: 
@@ -11,18 +11,27 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r echo=FALSE, warning=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(PharmacoGx)
 library(tidyMultiAssay)
 library(ggplot2)
-# note - how to export as pdf rmarkdown::render('vignettes/Overview.Rmd', 'pdf_document', output_dir='~/Desktop')
+# note - how to export as pdf 
+# rmarkdown::render('vignettes/Overview.Rmd', 'pdf_document', output_dir='~/Desktop')
 ```
-
 
 ## Introduction
 
-Exemplify functions for generating tidy data from PharmacoSet and MultiAssayExperient objects.
+Increasingly large cohorts of patient samples and preclinical models are being characterised by high throughput genomic assays such as RNA sequencing, exome sequencing etc.  The MultiAssayExperiment and PharmacoGx packages provided classes to store and manipulate such data, with MultiAssayExperiment being geared towards storing genomic data in a variety of use cases, and PharmacoGx being more specialised towards storing pharmacological screening datasets from cancer cell lines.  Large public datasets including The Cancer Genome Atlas and the Cancer Cell Line Encyclopedia are available in these formats.  In addition, labs may also generate their own genomic and phenotypic data and wish to combine this with data from other sources.
+
+
+The tidyMultiAssay package provides functions to subset and reformat data held within these specialised classes into simple, generic, tidy data frame formats.  Since the principles of tidy data are adhered to, it is then trivial to combine data from different sources into the same data frame for further analyses such as visualisation and modelling.  This approach enables users to store or access data held in formal, specialised classes, whilst being able to work with the suite of tidyverse packages (dplyr, tidyr, ggplot2, broom etc) when carrying out their analysis. For more information on the tidyverse and tidy principles see:
+
+- Tidyverse useR 2016 video by Hadley Wickham
+- Broom useR video by David Robinson
+- [Managing Many Models by Hadley Wickham](https://www.youtube.com/watch?v=rz3_FDVt9eg)
+- Tidy data paper by Hadley Wickham
+- R4DS link
 
 ## Quick start
 
@@ -38,8 +47,9 @@ class(eset)
 The `gather.ExpressionSet` function converts an ExpressionSet into a tidy data frame:
 
 ```{r}
-df <- gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF', 'EGFR'), 
-                           sample_col = "cellid", gene_col = "Symbol")
+df <- gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), 
+        gene_ids=c('BRAF', 'EGFR'), 
+        sample_col = "cellid", gene_col = "Symbol")
 df
 as.data.frame(df)
 ```
@@ -47,11 +57,11 @@ as.data.frame(df)
 Not specifying gene\_ids or sample\_ids returns all genes or samples
 
 ```{r}
-gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'), 
-                           sample_col = "cellid", gene_col = "Symbol")
+gather.ExpressionSet(eset, sample_ids=c('143B', '23132-87'),  gene_ids=NULL,
+         sample_col = "cellid", gene_col = "Symbol")
 ```
 
-Note that we can customise which identifier we want to use by specifying the sample\_col and gene\_col parameters.
+Note that we can customise which identifier we want to use by specifying the sample\_col and gene\_col parameters.  
 
 The `gather.PharmacoSet` function combined data from multiple sources and reports in a tidy format with a single data point per row:
 
@@ -60,16 +70,17 @@ gather.PharmacoSet(CCLEsmall, sample_ids=c('143B', '23132-87'), gene_ids=c('BRAF
   data_types=c('rna', 'mutation'), gene_col=c('Symbol', 'Symbol'))
 ```
 
-The `make_genetic_vs_genetic_df.PharmacoSet` function generates a data frame with one pair of genetic feature data per row.
+The `make_genetic_vs_genetic_df.PharmacoSet` function generates a data frame with one pair of genetic feature data per row.  In the case below data from the rna (affymetrix) assay and rnaseq assay can be compared.
 
 ```{r}
-gvg_df <- make_genetic_vs_genetic_df.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1='RBM5', gene2='RBM5',
-data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
+gvg_df <- make_genetic_vs_genetic_df.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), 
+                gene1='RBM5', gene2='RBM5', data_type1='rna', data_type2='rnaseq', 
+                gene_col1 = "Symbol", gene_col2 = "gene_name")
 gvg_df
 
 ```
 
-This is useful for creating plots of one gene vs another in ggplot2:
+This is useful for creating plots of one genetic feature vs another in ggplot2: we can see here that the rnaseq and affymetrix data correlate as expected for RBM5.
 
 ```{r}
 ggplot(gvg_df, aes(x=feature_value1, y=feature_value2)) + 
@@ -78,22 +89,25 @@ ggplot(gvg_df, aes(x=feature_value1, y=feature_value2)) +
 
 ```
 
-However, you can also supply multiple genes to this function:
+However, you can also supply multiple genes to this function and so make the same comparison for multiple genes.
 ```{r}
 genes <- c('RBM5', 'NQO1', "STPG1", "NIPAL3","LAS1L","ENPP4","SEMA3F","CFTR")
-gvg_df2 <- make_genetic_vs_genetic_df.PharmacoSet(CCLEsmall, sample_ids=cellNames(CCLEsmall), gene1=genes,  gene2=genes, data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", gene_col2 = "gene_name")
+gvg_df2 <- make_genetic_vs_genetic_df.PharmacoSet(CCLEsmall, 
+                sample_ids=cellNames(CCLEsmall), gene1=genes,  gene2=genes, 
+                data_type1='rna', data_type2='rnaseq', gene_col1 = "Symbol", 
+                gene_col2 = "gene_name")
 nrow(gvg_df2)
-
 ```
 
-This data format is then in a convenient form to manage models in a data frame using the dplyr and broom packages - see [Managing Many Models by Hadley Wickham](https://www.youtube.com/watch?v=rz3_FDVt9eg).  In the example below we are exploring how well RNAseq and Affymetrix data correlate across a number of genes.
+This data format is then in a convenient form to manage models in a data frame using the dplyr and broom packages - see [Managing Many Models by Hadley Wickham](https://www.youtube.com/watch?v=rz3_FDVt9eg).  In the example below we are exploring how well RNAseq and Affymetrix data correlate across a number of genes by fitting a linear model rather than making a plot.
 
 ```{r}
 mod_df <- gvg_df2 %>%
     dplyr::filter(gene1==gene2) %>%
     dplyr::group_by(feature_name1, feature_name2) %>%
     tidyr::nest() %>%
-    dplyr::mutate(mod=purrr::map(data, function(x) lm(feature_value1 ~ feature_value2, data=x)),
+    dplyr::mutate(mod=purrr::map(data, function(x) {
+                        lm(feature_value1 ~ feature_value2, data=x)}),
                   res=purrr::map(mod, broom::glance))
 mod_df
 mod_df %>% dplyr::select(-data,-mod) %>% tidyr::unnest()
@@ -136,21 +150,27 @@ Converting data in a PharmacoSet or MultiAssayExperiment object into a standardi
 
 For example, response and assay data can be gathered seperately from a PharmacoSet object using the `gather_response.PharmacoSet` and `gather_response.PharmacoSet` functions :
 ```{r}
-resp_data <- gather_response.PharmacoSet(CCLEsmall, sample_ids = NULL, resp_ids = c('lapatinib', 'Erlotinib', 'PLX4720'))
-assay_data <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=NULL, gene_ids = c('BRAF', 'ERBB2', 'EGFR', 'NQO1'), 'rna', gene_col='Symbol')
+resp_data <- gather_response.PharmacoSet(CCLEsmall, sample_ids = NULL, 
+                resp_ids = c('lapatinib', 'Erlotinib', 'PLX4720'),
+                resp_col = "ic50_published")
+assay_data <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=NULL, 
+                gene_ids = c('BRAF', 'ERBB2', 'EGFR', 'NQO1'), 
+                data_type='rna', gene_col='Symbol')
 ```
 
 Or in a single data frame via a command using the `gather.PharmacoSet` function:
 ```{r}
 combined_data <- gather.PharmacoSet(CCLEsmall, sample_ids=NULL, data_types='rna', 
-                                    gene_col='Symbol', gene_ids = c('BRAF', 'ERBB2', 'EGFR', 'NQO1'),
-                                    resp_col = "ic50_published", resp_ids = c('lapatinib', 'Erlotinib', 'PLX4720'))
+                    gene_col='Symbol', gene_ids = c('BRAF', 'ERBB2', 'EGFR', 'NQO1'),
+                    resp_col = "ic50_published", 
+                    resp_ids = c('lapatinib', 'Erlotinib', 'PLX4720'))
 ```
 
-The gather.PharmacoSet function can also be used to extract data from multiple assay types:
+The gather.PharmacoSet function can also be used to extract data from multiple assay types in one command:
 ```{r}
-combined_data2 <- gather.PharmacoSet(CCLEsmall, sample_ids=NULL, data_types=c('rna', 'rnaseq'), 
-                                    gene_col=c('Symbol', 'gene_name'), gene_ids = c('RBM5', 'NQO1', "STPG1", "NIPAL3","LAS1L","ENPP4","SEMA3F","CFTR"))
+combined_data2 <- gather.PharmacoSet(CCLEsmall, sample_ids=NULL, 
+                    data_types=c('rna', 'rnaseq'), gene_col=c('Symbol', 'gene_name'), 
+                    gene_ids = c('RBM5', 'NQO1', "STPG1", "NIPAL3"))
 ```
 
 
@@ -163,28 +183,32 @@ rvg1 <- make_response_vs_genetic_df.data.frame(assay_data, resp_data)
 
 Note that by default a number of arguments for each function are set to NULL.  More control over which genes and samples are included can be gained by setting these parameters, for example:
 ```{r}
-gvg2 <- make_genetic_vs_genetic_df.data.frame(combined_data2, gene1=c('RBM5', "STPG1"), gene2=c('RBM5', "STPG1"))
+gvg2 <- make_genetic_vs_genetic_df.data.frame(combined_data2, gene1=c('RBM5', "STPG1"), 
+                                              gene2=c('RBM5', "STPG1"))
 
 ```
 
-Alternatively, the resultant data frame can be filtered to make downstream analyses more useful:
+Alternatively, the resultant data frame can be filtered to make downstream analyses more useful.  The original data will contain a number of panels which aren't really that useful when plotted:
+
+```{r fig.width=6, fig.height=6}
+ggplot(gvg2, aes(feature_value1, feature_value2)) +
+    geom_point() + geom_smooth(method='lm') +
+    facet_grid(feature_name1~feature_name2) + theme_bw()
+```
+
+However, filtering and modifying the plot can make things more informative.  Since we want to compare affymetrix and rnaseq data, gene1 should always be the same as gene2 whilst the feature types should be different:
 ```{r fig.width=6, fig.height=6}
 gvg3 <- gvg2 %>%
     dplyr::filter(gene1 == gene2, feature_type1=='rna', feature_type2=='rnaseq')
 
-ggplot(gvg2, aes(feature_value1, feature_value2)) +
-    geom_point() + geom_smooth(method='lm') +
-    facet_grid(feature_name1~feature_name2)
-
 ggplot(gvg3, aes(feature_value1, feature_value2)) +
     geom_point() + geom_smooth(method='lm') +
-    facet_grid(feature_type1+gene1~feature_type2)
-
+    facet_grid(feature_type1+gene1~feature_type2) + theme_bw()
 ```
 It is also possible to do the entire operation in one function call using the `make_genetic_vs_genetic_df.PharmacoSet` function.
 
 ## Combining data from different data sources
-Data from different PharmacoSet or MultiAssayExperiment objects can be combined by first converting it to the tall\_df data frame format and then using `make_genetic_vs_genetic_df.data.frame` or `make_response_vs_genetic_df.data.frame` functions.
+Data from different PharmacoSet or MultiAssayExperiment objects can be combined by first generating converting to the tall\_df data frame format and then using `make_genetic_vs_genetic_df.data.frame` or `make_response_vs_genetic_df.data.frame` functions.
 
 ```{r}
 ccle_assay_data <- gather_assay.PharmacoSet(CCLEsmall, sample_ids=NULL,                                             gene_ids = c('RBM5', "STPG1", 'CFTR', 'MTMR7'), data_type='rna', gene_col='Symbol')
@@ -203,21 +227,22 @@ ggplot(gvg5, aes(feature_value1, feature_value2)) +
 
 ## Converting sample ids
 
-When combining data from different sources, there is no guarantee that the sample identifies used are the same.  In particular this is an issue when using cell line data from different experiments, although the PharmacoSet object provided in the PharmacoGx package do an excellent job of unifying the cell line id's.
+When combining data from different sources, there is no guarantee that the sample identifiers used are the same.  In particular this is an issue when using cell line data from different experiments, although the PharmacoSet object provided in the PharmacoGx package (see `?PharmacoGx::availablePSets`) do an excellent job of unifying the cell line id's.
 
-If sample identifiers do need to be unified, the `convert_ids` function can be used.  This takes any data frame with a column named sample\_id (for example a tall\_df) and another data frame with at least two columns, one of which represents the sample id pre-conversion, and the other representing the sample id post-conversion.  An example data frame is provided with this package that provides conversion information for a variety of identifier schemas for cancer cell lines, but user generated ones can also be used:
+If sample identifiers do need to be unified, the `convert_ids` function can be used.  This takes any data frame with a column named sample\_id (for example a tall\_df) and another data frame with at least two columns, one of which represents the sample id pre-conversion, and the other representing the sample id post-conversion.  An example data frame is provided with this package that provides conversion information for a variety of identifier schemas for cancer cell lines, but the user can also generate their own:
 
 ```{r}
 data("CancerCellLineIDs")
 CancerCellLineIDs
-convert_ids(df=example_tall_df, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'), from_col='alt_id', to_col='unified_id')
+convert_ids(df=example_tall_df, id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'), 
+            from_col='alt_id', to_col='unified_id')
 ```
 
 The function can also be used to append additional columns to the resultant data frame by setting the `other_cols` parameter.
 
 ## Using custom data
 
-All that is required is to put the custom data frame into either the tall\_df or resp\_df data frame format and then use either the `check_df_format` or `get_df_format` function to ensure that the format is correct:
+Custom data can be easily incorporated allowing internally generated response data (from cell line panel screens or siRNA screen) or genomic data (q-rtPCR or protein quantification) to be used.  All that is required is to put the custom data frame into either the tall\_df or resp\_df data frame format and then use either the `check_df_format` or `get_df_format` function to ensure that the format is correct:
 
 ```{r}
 test_df <- dplyr::data_frame(sample_id=c('A375_SKIN', 'DMS114_LUNG', 'NCIH1155_LUNG'),
@@ -233,10 +258,11 @@ Once the data is in the right format, it can be combined with data that originat
 
 ```{r}
 data("dietlein_data")
-gdat1 <- gather.PharmacoSet(CCLEsmall, gene_ids = c('BRAF', 'EGFR', 'TP53'), gene_col = c('Symbol', 'Symbol'), data_types = c("rna", "mutation"))
-gdat1 <- gdat1 %>% convert_ids(id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'), from_col='alt_id', to_col='unified_id')
+gdat1 <- gather.PharmacoSet(CCLEsmall, gene_ids = c('BRAF', 'EGFR', 'TP53'), 
+            gene_col = c('Symbol', 'Symbol'), data_types = c("rna", "mutation"))
+gdat1 <- gdat1 %>% convert_ids(id_data=dplyr::filter(CancerCellLineIDs, id_type=='CCLE'), 
+                               from_col='alt_id', to_col='unified_id')
 
-#now create response_vs_genetic
 dietlein_rvg <- make_response_vs_genetic_df.data.frame(gdat1, dietlein_data)
 dietlein_rvg
 
