@@ -10,7 +10,8 @@
 #' @param resp_col Response variable to retrieve
 #'
 #' @return a data frame in tall_df format
-#' @export
+#' @export gather_response.PharmacoSet
+#'
 #'
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')

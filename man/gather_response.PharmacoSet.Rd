@@ -4,7 +4,7 @@
 \alias{gather_response.PharmacoSet}
 \title{Convert response data from a PharmacoSet into tidy format}
 \usage{
-gather_response.PharmacoSet(x, sample_ids = NULL, resp_ids = NULL,
+\method{gather_response}{PharmacoSet}(x, sample_ids = NULL, resp_ids = NULL,
   resp_col = "ic50_published")
 }
 \arguments{

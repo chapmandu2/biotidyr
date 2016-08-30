@@ -11,7 +11,7 @@
 #' @param resp_ids A vector of response ids.  Default is NULL (don't filter on response id)
 #'
 #' @return a data frame in tall_df format
-#' @export
+#' @export gather_response.data.frame
 #'
 #' @examples
 #' data('dietlein_data')

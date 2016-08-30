@@ -1,12 +1,13 @@
 library(dplyr)
 library(tidyMultiAssay)
 library(PharmacoGx)
+library(Biobase)
 
 load('~/BigData/PSets/CCLE.RData')
 
 set.seed(1234)
 test_sample_ids <- sample(cellNames(CCLE), 500)
-test_gene_ids <-     sample(featureNames(CCLE, 'rna'), 500)
+test_gene_ids <-     sample(fNames(CCLE, 'rna'), 500)
 test_drug_ids <- sample(drugNames(CCLE), 5)
 
 resp_data <- gather_response.PharmacoSet(CCLE, test_sample_ids, test_drug_ids)
@@ -50,7 +51,7 @@ ggplot(rvg3, aes(feature_value, resp_value)) +
     facet_grid(feature_name~resp_id)
 
 #some simple modelling
-#get rid of repition in data frame and make rna always feature 1
+#get rid of repetion in data frame and make rna always feature 1
 gvg3_mods <- gvg3 %>%
     dplyr::filter(feature_name1 != feature_name2, feature_type1=='rna', feature_type2=='rnaseq')
 ggplot(gvg3_mods, aes(feature_value1, feature_value2)) + geom_point() + facet_grid(feature_name1~feature_name2)

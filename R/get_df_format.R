@@ -6,7 +6,7 @@
 #'
 #' @param df query data frame
 #' @return string of data frame type
-#' @export
+#' @export get_df_format
 #'
 #' @examples
 #' data(dietlein_data)

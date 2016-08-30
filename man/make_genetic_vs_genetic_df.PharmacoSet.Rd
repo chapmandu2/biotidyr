@@ -4,9 +4,9 @@
 \alias{make_genetic_vs_genetic_df.PharmacoSet}
 \title{Create a genetic_vs_genetic data frame from the data in a PharmacoSet}
 \usage{
-make_genetic_vs_genetic_df.PharmacoSet(x, sample_ids = NULL, gene1, gene2,
-  data_type1, data_type2, sample_col = "cellid", gene_col1 = "Symbol",
-  gene_col2 = "Symbol")
+\method{make_genetic_vs_genetic_df}{PharmacoSet}(x, sample_ids = NULL, gene1,
+  gene2, data_type1, data_type2, sample_col = "cellid",
+  gene_col1 = "Symbol", gene_col2 = "Symbol")
 }
 \arguments{
 \item{x}{PharmacoSet object}

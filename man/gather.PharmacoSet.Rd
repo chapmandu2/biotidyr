@@ -4,10 +4,10 @@
 \alias{gather.PharmacoSet}
 \title{Convert a PharmacoSet object into tidy format}
 \usage{
-gather.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL, resp_ids = NULL,
-  sample_col = "cellid", gene_col = c("Symbol", "gene_name"),
-  resp_col = "ic50_published", data_types = c("rna", "mutation"),
-  resp_df = NULL)
+\method{gather}{PharmacoSet}(x, sample_ids = NULL, gene_ids = NULL,
+  resp_ids = NULL, sample_col = "cellid", gene_col = c("Symbol",
+  "gene_name"), resp_col = "ic50_published", data_types = c("rna",
+  "mutation"), resp_df = NULL)
 }
 \arguments{
 \item{x}{PharmacoSet object}

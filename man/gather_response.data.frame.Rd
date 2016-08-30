@@ -4,8 +4,8 @@
 \alias{gather_response.data.frame}
 \title{Convert response data from a data frame into tidy format}
 \usage{
-gather_response.data.frame(x, sample_ids = NULL, compound_ids = NULL,
-  endpoints = NULL, resp_ids = NULL)
+\method{gather_response}{data.frame}(x, sample_ids = NULL,
+  compound_ids = NULL, endpoints = NULL, resp_ids = NULL)
 }
 \arguments{
 \item{x}{a data frame in either resp_df or tall_df format}

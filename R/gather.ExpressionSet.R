@@ -11,7 +11,7 @@
 #' @param gene_col Name of the column in the rowData data frame to use for filtering on gene id
 #'
 #' @return a data frame in tall_df format
-#' @export
+#' @export gather.ExpressionSet
 #' @importFrom magrittr %>%
 #'
 #' @examples

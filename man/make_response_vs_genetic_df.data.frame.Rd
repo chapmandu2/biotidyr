@@ -4,9 +4,9 @@
 \alias{make_response_vs_genetic_df.data.frame}
 \title{Create a response_vs_genetic data frame from two tall data frames}
 \usage{
-make_response_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
-  gene_ids = NULL, data_types = NULL, compound_ids = NULL,
-  endpoints = NULL, resp_ids = NULL)
+\method{make_response_vs_genetic_df}{data.frame}(df, df2 = NULL,
+  sample_ids = NULL, gene_ids = NULL, data_types = NULL,
+  compound_ids = NULL, endpoints = NULL, resp_ids = NULL)
 }
 \arguments{
 \item{df}{a data frame in tall_df format containing the genetic data (and response data if df2 not set)}

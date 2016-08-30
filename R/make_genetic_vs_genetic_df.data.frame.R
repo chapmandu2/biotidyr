@@ -15,7 +15,7 @@
 #' @param gene_col Name of the column in the rowData data frame to use for filtering on gene id
 #'
 #' @return a data frame in gvg_df format
-#' @export
+#' @export make_genetic_vs_genetic_df.data.frame
 #'
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')

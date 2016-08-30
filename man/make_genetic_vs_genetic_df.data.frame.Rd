@@ -4,8 +4,9 @@
 \alias{make_genetic_vs_genetic_df.data.frame}
 \title{Create a genetic_vs_genetic data frame from two tall data frames}
 \usage{
-make_genetic_vs_genetic_df.data.frame(df, df2 = NULL, sample_ids = NULL,
-  gene1 = NULL, gene2 = NULL, data_type1 = NULL, data_type2 = NULL)
+\method{make_genetic_vs_genetic_df}{data.frame}(df, df2 = NULL,
+  sample_ids = NULL, gene1 = NULL, gene2 = NULL, data_type1 = NULL,
+  data_type2 = NULL)
 }
 \arguments{
 \item{df}{a data frame in tall_df format containing genetic data for feature 1 (and feature 2 if df2 is NULL)}

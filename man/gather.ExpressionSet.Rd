@@ -4,7 +4,7 @@
 \alias{gather.ExpressionSet}
 \title{Convert an ExpressionSet object into tidy format}
 \usage{
-gather.ExpressionSet(x, sample_ids = NULL, gene_ids = NULL,
+\method{gather}{ExpressionSet}(x, sample_ids = NULL, gene_ids = NULL,
   sample_col = "cellid", gene_col = "Symbol")
 }
 \arguments{

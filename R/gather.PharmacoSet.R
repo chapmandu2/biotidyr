@@ -16,7 +16,7 @@
 #' @param resp_df Data frame to process response data from (rather than PharmcaGx object)
 #'
 #' @return a data frame in tall_df format
-#' @export
+#' @export gather.PharmacoSet
 #'
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')

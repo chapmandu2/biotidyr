@@ -4,7 +4,7 @@
 \alias{gather_assay.PharmacoSet}
 \title{Convert assay data from a PharmacoSet into tidy format}
 \usage{
-gather_assay.PharmacoSet(x, sample_ids = NULL, gene_ids = NULL,
+\method{gather_assay}{PharmacoSet}(x, sample_ids = NULL, gene_ids = NULL,
   data_type = "rna", sample_col = "cellid", gene_col = "Symbol")
 }
 \arguments{

@@ -10,7 +10,7 @@
 #' @param to_col Define the name of the column matching the new ids
 #' @param other_cols Other columns to include in the output
 #' @return a data frame
-#' @export
+#' @export convert_ids
 #'
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')

@@ -15,7 +15,7 @@
 #' @param resp_ids A vector of response ids.  Default is NULL (don't filter on response id)
 #'
 #' @return a data frame in rvg_df format
-#' @export
+#' @export make_response_vs_genetic_df.data.frame
 #'
 #' @examples
 #' data('CCLEsmall', package='PharmacoGx')

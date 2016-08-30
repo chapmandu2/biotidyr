@@ -9,7 +9,7 @@
 #' @param format format to test - see \code{\link{data-formats}}
 #' @param dev_mode stop if test is false.  Default is FALSE
 #' @return string of data frame type
-#' @export
+#' @export check_df_format
 #'
 #' @examples
 #' data(dietlein_data)
