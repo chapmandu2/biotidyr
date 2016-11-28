@@ -104,30 +104,22 @@ do_analysis <- function(genes_df, resp_df, pset_name, data_type, gene_col) {
 
 }
 
-#process in series
-#ct <- proc.time()
-#z <- control_df %>%
-#    dplyr::select(-i) %>%
-    #dplyr::slice(1:3) %>%
-#    invoke_rows(.f=do_analysis, .d=., .labels=TRUE) %>%
-#    dplyr::select(-genes_df, -resp_df) %>%
-#    tidyr::unnest()
-#proc.time() - ct
-#z
+
+#define a function to process the control data frame
+fpar <- function(k, df) {
+    df %>%
+        dplyr::select(-i) %>%
+        dplyr::slice(k) %>%
+        purrr::invoke_rows(.f=do_analysis, .d=., .labels=TRUE) %>%
+        dplyr::select(-genes_df, -resp_df) %>%
+        tidyr::unnest()
+}
+fpar(6, control_df)
+fpar(1:5, control_df)
 
 #process in parallel using foreach
 library(foreach)
 library(doParallel)
-
-fpar <- function(k, df) {
-    args_list <- df %>% dplyr::slice(k) %>% purrr::cross_n() %>% purrr::flatten()
-    do_analysis(args_list$genes_df, args_list$resp_df, args_list$pset_name,
-                args_list$data_type, args_list$gene_col) #%>%
-       # dplyr::select(-genes_df, -resp_df) %>%
-        #tidyr::unnest()
-}
-fpar(6, control_df)
-
 cl = makeCluster(8)
 registerDoParallel(cl)
 

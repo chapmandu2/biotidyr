@@ -2,6 +2,7 @@
 
 export(check_df_format)
 export(convert_ids)
+export(crush)
 export(gather)
 export(gather.ExpressionSet)
 export(gather.PharmacoSet)
