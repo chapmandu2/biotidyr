@@ -34,6 +34,17 @@ gather_response <- function (x, ...) {
     UseMethod("gather_response", x)
 }
 
+#' @title gather_curvedata
+#' @description S3 generic for \code{\link{gather_curvedata.PharmcoSet}}
+#' @details gather_curvedata
+#' @param x a PharmacoSet
+#' @param ... other arguments see \code{\link{gather_curvedata.PharmcoSet}}
+#' @seealso \code{\link{gather_curvedata.PharmcoSet}}
+#' @export
+gather_curvedata <- function (x, ...) {
+    UseMethod("gather_curvedata", x)
+}
+
 #' @title make_genetic_vs_genetic_df
 #' @description S3 generic for \code{\link{make_genetic_vs_genetic_df.PharmcoSet}} and \code{\link{make_genetic_vs_genetic_df.data.frame}}
 #' @param x a data.frame or PharmacoSet

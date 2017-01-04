@@ -4,10 +4,12 @@
 \alias{crush}
 \title{Crush cell line id format}
 \usage{
-crush(x)
+crush(x, upper_case = FALSE)
 }
 \arguments{
 \item{x}{character vector of ids}
+
+\item{upper_case}{boolean - return in upper case or not.  Default FALSE}
 }
 \value{
 character vector of crushed ids
@@ -16,8 +18,9 @@ character vector of crushed ids
 Helper function to remove punctuation and whitespace from cell line id's.  This helps convert id's between datasets.
 }
 \examples{
+
 data("CCLEsmall", package='PharmacoGx')
-cellNames(CCLEsmall)[1:20]
-crush(cellNames(CCLEsmall)[1:20])
+PharmacoGx::cellNames(CCLEsmall)[1:20]
+crush(PharmacoGx::cellNames(CCLEsmall)[1:20])
 }
 
