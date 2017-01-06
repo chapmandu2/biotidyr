@@ -5,7 +5,7 @@
 \title{Convert raw dose response curve data from a \linkS4class{PharmacoSet} into tidy format}
 \usage{
 \method{gather_curvedata}{PharmacoSet}(x, sample_ids = NULL,
-  resp_ids = NULL)
+  resp_ids = NULL, extra_cols = NULL)
 }
 \arguments{
 \item{x}{PharmacoSet object}
@@ -14,7 +14,7 @@
 
 \item{resp_ids}{A vector of response ids.  Default is NULL (don't filter on response id)}
 
-\item{resp_col}{Response variable to retrieve}
+\item{extra_cols}{Optional additional columns to retrieve from the PharmacoSet drug info. Default is NULL}
 }
 \value{
 a data frame
@@ -26,6 +26,8 @@ Convert raw dose response curve data from a \linkS4class{PharmacoSet} into tidy 
 data('CCLEsmall', package='PharmacoGx')
 gather_curvedata.PharmacoSet(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'),
                          resp_ids=c('AEW541', 'Nilotinib'))
+gather_curvedata.PharmacoSet(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'),
+                         resp_ids=c('AEW541', 'Nilotinib'), extra_cols='nbr.conc.tested')
 \dontrun{
 
 #example to extract PARP inhibitor data from GDSC1000 dataset and what happens

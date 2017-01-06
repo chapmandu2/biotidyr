@@ -7,7 +7,7 @@
 #' @param x PharmacoSet object
 #' @param sample_ids A vector of sample ids.  Default is NULL (don't filter on sample id)
 #' @param resp_ids A vector of response ids.  Default is NULL (don't filter on response id)
-#' @param resp_col Response variable to retrieve
+#' @param extra_cols Optional additional columns to retrieve from the PharmacoSet drug info. Default is NULL
 #'
 #' @return a data frame
 #' @export gather_curvedata.PharmacoSet
@@ -17,6 +17,8 @@
 #' data('CCLEsmall', package='PharmacoGx')
 #' gather_curvedata.PharmacoSet(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'),
 #'                          resp_ids=c('AEW541', 'Nilotinib'))
+#' gather_curvedata.PharmacoSet(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'),
+#'                          resp_ids=c('AEW541', 'Nilotinib'), extra_cols='nbr.conc.tested')
 #' \dontrun{
 #'
 #' #example to extract PARP inhibitor data from GDSC1000 dataset and what happens
@@ -38,7 +40,7 @@
 #'
 #' }
 #'
-gather_curvedata.PharmacoSet <- function(x, sample_ids=NULL, resp_ids=NULL) {
+gather_curvedata.PharmacoSet <- function(x, sample_ids=NULL, resp_ids=NULL, extra_cols=NULL) {
 
     #include all samples and response values if either is not specified
     if(is.null(sample_ids)) {
@@ -51,13 +53,13 @@ gather_curvedata.PharmacoSet <- function(x, sample_ids=NULL, resp_ids=NULL) {
 
     #get information on the drugs selected
     drugInfo <- x@sensitivity$info %>%
-        tibble::rownames_to_column('drugid_cellid') %>%
-        dplyr::select(drugid_cellid, cellid, drugid) %>%
+        tibble::rownames_to_column('curve_id') %>%
+        dplyr::select(dplyr::one_of('curve_id', 'cellid', 'drugid', extra_cols)) %>%
         dplyr::filter(cellid %in% sample_ids & drugid %in% resp_ids) %>%
         dplyr::tbl_df()
 
     #get the curve names
-    curveNames <- drugInfo$drugid_cellid
+    curveNames <- drugInfo$curve_id
 
     #subset the curve data for only those curves that contain the drugs and cellids that we want
     curveData <- x@sensitivity$raw
@@ -66,33 +68,35 @@ gather_curvedata.PharmacoSet <- function(x, sample_ids=NULL, resp_ids=NULL) {
     #convert the dose information data to a tibble
     doseData_df <- curveData[,,'Dose'] %>%
         as.data.frame() %>%
-        tibble::rownames_to_column('drugid_cellid') %>%
-        tidyr::gather(key='doseid', value='conc', -drugid_cellid) %>%
+        tibble::rownames_to_column('curve_id') %>%
+        tidyr::gather(key='doseid', value='conc', -curve_id) %>%
         dplyr::mutate(conc=as.numeric(conc)) %>%
         dplyr::tbl_df()
 
     #convert the viability information data to a tibble
     viabilityData_df <- curveData[,,'Viability'] %>%
         as.data.frame() %>%
-        tibble::rownames_to_column('drugid_cellid') %>%
-        tidyr::gather(key='doseid', value='viability', -drugid_cellid) %>%
-        dplyr::mutate(viability=as.numeric(viability)) %>%
+        tibble::rownames_to_column('curve_id') %>%
+        tidyr::gather(key='doseid', value='signal', -curve_id) %>%
+        dplyr::mutate(signal=as.numeric(signal)) %>%
         dplyr::tbl_df()
 
     #combine the dose and viability information
     curveData_df <- viabilityData_df %>%
-        dplyr::inner_join(doseData_df, by=c('drugid_cellid', 'doseid')) %>%
+        dplyr::inner_join(doseData_df, by=c('curve_id', 'doseid')) %>%
         dplyr::select(-doseid) %>%
-        dplyr::inner_join(drugInfo, by='drugid_cellid')
+        dplyr::inner_join(drugInfo, by='curve_id')
 
     #combine the drug information and return
     out <- curveData_df %>%
-        dplyr::transmute(drugid_cellid, sample_id=cellid, resp_id=drugid, conc, viability)
+        dplyr::mutate(sample_id=cellid, resp_id=drugid) %>%
+        dplyr::select(dplyr::one_of('curve_id', 'sample_id', 'resp_id', 'conc', 'signal', extra_cols))
 
     #check whether any duplicates exist and warn if so
     dup_check <- out %>%
-        dplyr::distinct(resp_id, sample_id, drugid_cellid) %>%
-        dplyr::group_by(resp_id, sample_id) %>% dplyr::summarise(N=n()) %>%
+        dplyr::distinct(resp_id, sample_id, curve_id) %>%
+        dplyr::group_by(resp_id, sample_id) %>%
+        dplyr::summarise(N=n()) %>%
         dplyr::filter(N>1)
 
     if(nrow(dup_check) > 0) {

@@ -20,7 +20,9 @@
 #'
 #' data(mtcars)
 #' check_df_format(mtcars, 'tall_df')
-check_df_format <- function(df, format, dev_mode=FALSE) {
+check_df_format <- function(df, format=NULL, dev_mode=FALSE) {
+
+    stopifnot(is.character(format))
 
     res <- identical(get_df_format(df), format)
 

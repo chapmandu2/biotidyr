@@ -5,7 +5,7 @@
 \title{Convert response data from a PharmacoSet into tidy format}
 \usage{
 \method{gather_response}{PharmacoSet}(x, sample_ids = NULL, resp_ids = NULL,
-  resp_col = "ic50_published")
+  resp_col = "ic50_published", extra_cols = NULL)
 }
 \arguments{
 \item{x}{PharmacoSet object}
@@ -15,6 +15,8 @@
 \item{resp_ids}{A vector of response ids.  Default is NULL (don't filter on response id)}
 
 \item{resp_col}{Response variable to retrieve}
+
+\item{extra_cols}{Optional additional columns to retrieve from the PharmacoSet drug info. Default is NULL}
 }
 \value{
 a data frame in tall_df format
@@ -25,6 +27,11 @@ Convert response data from a \linkS4class{PharmacoSet} into tidy format
 \examples{
 data('CCLEsmall', package='PharmacoGx')
 gather_response.PharmacoSet(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'),
-                         resp_ids=c('AEW541', 'Nilotinib'), resp_col='ic50_published')
+                         resp_ids=c('AEW541', 'Nilotinib'),
+                         resp_col='ic50_published')
+
+gather_response.PharmacoSet(CCLEsmall, sample_ids=c('CHL-1', 'SW1573'),
+                         resp_ids=c('AEW541', 'Nilotinib'),
+                         resp_col='ic50_published', extra_cols='nbr.conc.tested')
 }
 
